@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
+import { useAuth } from "../store/auth-context";
+
 
 function Contact(){
   const [contact, setContact] = useState({
@@ -17,7 +20,17 @@ function Contact(){
       [name]: value,
     });
   };
-
+  const {user} = useAuth();
+  const [userData,setUserData] = useState(true)
+ 
+  if(userData && user){
+    setContact({
+      username: user.username,
+      email: user.email,
+      message: "",
+    })
+    setUserData(false)
+  }
   // handle fomr getFormSubmissionInfo
   const handleSubmit = (e) => {
     e.preventDefault();
