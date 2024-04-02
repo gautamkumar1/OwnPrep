@@ -1,17 +1,23 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 
 
-import { NavLink } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import Analytics from "../compoents/Analytics";
+import { useAuth } from "../store/auth-context";
+
+
 function About(){
+ const {user} = useAuth()
   return (
+    
     <>
       <main>
         <section className="section-hero">
           <div className="container grid grid-two-cols">
             <div className="hero-content">
               {/* <p>We care to cure your Health</p> */}
-
+              <p>Welcome {user.username}</p>
               <h1>Why Choose Us? </h1>
               <p>
                 Expertise: Our team consists of experienced IT professionals who
