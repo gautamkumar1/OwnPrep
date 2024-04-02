@@ -32,8 +32,31 @@ function Contact(){
     setUserData(false)
   }
   // handle fomr getFormSubmissionInfo
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5000/api/from/contact",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contact),
+      });
+      if(response.ok){
+        const responseData = await response.json();
+        alert("Message Sent Successfully")
+        setContact({
+          username: "",
+          email: "",
+          message: "",
+        })
+      }
+      else{
+        console.log("Message not delivered");
+      }
+    } catch (error) {
+      console.log("Error in contact form submission",error);
+    }
 
     console.log(contact);
   };
