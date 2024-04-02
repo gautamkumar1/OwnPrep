@@ -11,37 +11,38 @@ export const authContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
+  
   let isLoggedIn = !!token;
   const storeTokenInLocalStorage = (serverToken) => {
     setToken(serverToken);
     return localStorage.setItem("token", serverToken);
   };
-  // function to check the user Authentication or not
-  const userAuthentication = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/user", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-
-        // our main goal is to get the user data 👇
-        setUser(data.userData);
-      } else {
-        console.error("Error fetching user data");
-      }
-    } catch (error) {
-      console.log(error);
+  
+// JWT AUTHENTICATION - to get the currentlt loggedIn user data
+const userAuthentication = async () =>{
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/user",{
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if(response.ok){
+      const responseData = await response.json();
+      setUser(responseData.userData);
     }
-  };
-
-  useEffect(() => {
-    userAuthentication();
-  }, []);
+    else{
+      setUser("")
+      console.error("Error fetching user data");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+useEffect (() => {
+  userAuthentication()
+},[])
+ 
   // lets takle the logout
   const logoutUser = () => {
     setToken(null);
@@ -49,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   };
   return (
     <authContext.Provider
-      value={{ storeTokenInLocalStorage, logoutUser, isLoggedIn, user }}
+      value={{ storeTokenInLocalStorage, logoutUser, isLoggedIn,user}}
     >
       {children}
     </authContext.Provider>

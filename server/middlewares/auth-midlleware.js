@@ -27,7 +27,8 @@ const authMiddleware = async (req, res, next) => {
 
     req.token = token;
     req.user = userData;
-    req.userID = user._id;
+    req.userID = userData._id;
+
     // Move on to the next middleware or route handler
     next();
   } catch (error) {
