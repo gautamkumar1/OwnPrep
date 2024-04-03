@@ -13,6 +13,8 @@ const authMiddleware = async (req, res, next) => {
 
   // Assuming token is in the format "Bearer <jwtToken>, Removing the "Bearer" prefix"
   const jwtToken = token.replace("Bearer", "").trim();
+  // const jwtToken = token.replace("Bearer ", "").trim();
+
   console.log(jwtToken);
 
   try {

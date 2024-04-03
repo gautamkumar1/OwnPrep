@@ -20,26 +20,26 @@ export const AuthProvider = ({ children }) => {
   };
   
 // JWT AUTHENTICATION - to get the currentlt loggedIn user data
-const userAuthentication = async () =>{
+const userAuthentication = async () => {
   try {
-    const response = await fetch("http://localhost:5000/api/auth/user",{
+    const response = await fetch("http://localhost:5000/api/auth/user", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    if(response.ok){
+    if (response.ok) {
       const responseData = await response.json();
       setUser(responseData.userData);
-    }
-    else{
-      setUser("")
+    } else {
+      setUser("");
       console.error("Error fetching user data");
     }
   } catch (error) {
     console.log(error);
   }
-}
+};
+
 const getServiceData = async () =>{
   try {
     const response = await fetch("http://localhost:5000/api/data/service",{

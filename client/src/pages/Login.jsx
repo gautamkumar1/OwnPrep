@@ -34,8 +34,9 @@ const {storeTokenInLocalStorage} = useAuth()
         body: JSON.stringify(user),
       });
 
+      const responseData = await response.json();
+      console.log(responseData);
       if (response.ok) {
-       const responseData = await response.json();
        alert("Login Successful")
       //  store the jwt token in the local storage
       storeTokenInLocalStorage(responseData.token)
@@ -46,7 +47,11 @@ const {storeTokenInLocalStorage} = useAuth()
        navigate("/");
       }
       else{
-        console.log("Error inside in login");
+        alert(
+          responseData.extraDetails
+            ? responseData.extraDetails
+            : responseData.message
+        );
       }
     } catch (error) {
       console.log("Invalid Credentials  ", error);

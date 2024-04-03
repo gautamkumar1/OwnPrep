@@ -26,7 +26,7 @@ const home =  async (req,res) =>{
     6. Respond : respond with "Registration successful" or handle password error
  --------------------------------
 */
-const register = async (req,res) =>{
+const register = async (req,res,next) =>{
     try {
         
         const {username,email,phone,password} = req.body;
@@ -34,7 +34,7 @@ const register = async (req,res) =>{
         const userExists = await User.findOne({email: email});
 
         if(userExists){
-            return res.status(400).json("Email already exists");
+            return res.status(400).json({ message: "Email already exists" });
         }
 
         // Hashed password
@@ -46,7 +46,7 @@ const register = async (req,res) =>{
         
 
         res.status(201).json({
-          msg:"Registeration successful",
+          message:"Registeration successful",
           token: await userCreated.generateToken(),
           userId: userCreated._id.toString(),
         });
@@ -54,31 +54,34 @@ const register = async (req,res) =>{
         next(error);
     }
 }
-const login = async (req,res) => {
-    try {
-        const {email, password} = req.body;
-        // check if the user is already logged in or not
-        const userExists = await User.findOne({email: email});
-        if (!userExists) {
-          return res.status(400).json("Invalid Credentials");
-        }
-        // compare the email and password
-        // const isMatch = await bcryptjs.compare(password, userExists.password);
-        const isMatch = await userExists.comparePassword(password);
-        if(isMatch) {
-            res.status(200).json({
-                msg:"Login successful",
-                token: await userExists.generateToken(),
-                userId: userExists._id.toString(),
-            });
-        }
-        else {
-            return res.status(400).json("Invalid Credentials");
-        }
-    } catch (error) {
-        next(error);
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    // Check if the user exists in the database
+    const userExists = await User.findOne({ email: email });
+    if (!userExists) {
+      return res.status(400).json({ message: "Invalid credentials" });
     }
-}
+    // Compare the provided password with the hashed password in the database
+    const isMatch = await userExists.comparePassword(password);
+    if (isMatch) {
+      // If the password is correct, generate a JWT token
+      const token = await userExists.generateToken();
+      res.status(200).json({
+        message: "Login successful",
+        email: userExists.email, // Include the user's email in the response
+        token: token,
+        userId: userExists._id.toString(),
+      });
+    } else {
+      // If the password is incorrect, return an error message
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 /* --------------------------------
     Create use Logic
  --------------------------------

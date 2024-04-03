@@ -30,10 +30,10 @@ function Register() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
-      }
-      );
+      });
+      const responseData = await response.json();
+      // console.log("responseData", responseData);
       if(response.ok){
-        const responseData = await response.json();
         alert("Registration successfully");
         /* / / / / / 1st Way     / / / / / */
 
@@ -49,7 +49,7 @@ function Register() {
         navigate("/login");
       }
       else{
-        console.log("Error inside in the registration");
+        alert(responseData.extraDetails ? responseData.extraDetails : responseData.message);
       }
     } catch (error) {
       console.log(error);
