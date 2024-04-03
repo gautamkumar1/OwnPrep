@@ -2,7 +2,7 @@
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
 import { useAuth } from "../store/auth-context";
-
+import { toast } from "react-toastify";
 function Register() {
   // Hooks for register
   const [user,setUser] = useState({
@@ -34,7 +34,7 @@ function Register() {
       const responseData = await response.json();
       // console.log("responseData", responseData);
       if(response.ok){
-        alert("Registration successfully");
+        toast.success("Registration successfully");
         /* / / / / / 1st Way     / / / / / */
 
         // store jwt token in localStorage
@@ -46,10 +46,14 @@ function Register() {
         /* / / / / / 2nd Way     / / / / / */
         storeTokenInLocalStorage(responseData.token);
         setUser({ username: "", email: "", phone: "", password: "" });
-        navigate("/login");
+        navigate("/");
       }
       else{
-        alert(responseData.extraDetails ? responseData.extraDetails : responseData.message);
+        toast.error(
+          responseData.extraDetails
+            ? responseData.extraDetails
+            : responseData.message
+        );
       }
     } catch (error) {
       console.log(error);

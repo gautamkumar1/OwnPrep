@@ -3,6 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth-context";
+import {toast} from "react-toastify";
+
 const Login = () => {
   
   const [user, setUser] = useState({
@@ -37,7 +39,7 @@ const {storeTokenInLocalStorage} = useAuth()
       const responseData = await response.json();
       console.log(responseData);
       if (response.ok) {
-       alert("Login Successful")
+       toast.success("Login Successful")
       //  store the jwt token in the local storage
       storeTokenInLocalStorage(responseData.token)
        setUser({
@@ -47,7 +49,7 @@ const {storeTokenInLocalStorage} = useAuth()
        navigate("/");
       }
       else{
-        alert(
+        toast.error(
           responseData.extraDetails
             ? responseData.extraDetails
             : responseData.message
