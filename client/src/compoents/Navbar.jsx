@@ -11,7 +11,9 @@ function Navbar() {
         <div className="container">
           {/* LOGO   */}
           <div className="logo-brand">
-            <NavLink to="/">OwnPrep</NavLink>
+            <NavLink to="/">
+              OwnPrep
+            </NavLink>
           </div>
           <nav>
             <ul>

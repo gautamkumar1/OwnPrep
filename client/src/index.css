@@ -533,3 +533,8 @@ a.active {
   font-family: "Atlas Grotesk Web", Arial, Helvetica, sans-serif;
   font-size: 1.7rem;
 }
+
+/* Logo Brand */
+.logo-brand{
+  padding-top: 20px;
+}
