@@ -11,6 +11,9 @@ import Navbar from './compoents/Navbar'
 import Error from './pages/Error'
 import Footer from './compoents/Footer'
 import Logout from './pages/Logout'
+import AdminLayout from './compoents/layouts/AdminLayout'
+import AdminUsers from './pages/AdminUsers'
+import AdminContacts from './pages/AdminContacts'
 
 function App() {
   return (
@@ -26,6 +29,11 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="*" element={<Error/>}/>
+        {/* NESTED ROUTE FOR ADMIN DASHBOARD */}
+        <Route path='/admin' element={<AdminLayout/>}>
+          <Route path='users' element={<AdminUsers/>} />
+          <Route path='contacts' element={<AdminContacts/>} />
+        </Route>
       </Routes>
       <Footer/>
       </BrowserRouter>
