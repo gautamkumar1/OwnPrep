@@ -21,7 +21,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json());
-
+// Mount the Router: To use the router in your main Express app, you can "mount" it at a specific URL prefix
 app.use('/api/auth',authRoute)
 app.use("/api/from",contactRoute);
 app.use("/api/data", serviceRoute);

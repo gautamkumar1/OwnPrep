@@ -1,5 +1,8 @@
 const User = require("../models/user-model");
 const Contact = require("../models/contact-model")
+// *-------------------------------
+//* Get all users Logic 📝
+// *-------------------------------
 const getAllUsers = async (req, res,next) => {
   try {
     const users = await User.find({}, { password: 0 });
@@ -12,7 +15,9 @@ const getAllUsers = async (req, res,next) => {
     next(error);
   }
 };
-
+// *-------------------------------
+//* Get all contacts Logic 📝
+// *-------------------------------
 const getAllContacts = async (req, res,next) => {
   try {
     const contacts = await Contact.find();
@@ -26,4 +31,17 @@ const getAllContacts = async (req, res,next) => {
     next(error);
   }
 };
-module.exports = {getAllUsers,getAllContacts};
+// *-------------------------------
+//* user delete Logic 📝
+// *-------------------------------
+
+const deleteUserById = async (req, res,next) => {
+  try {
+    const id = req.params.id;
+    await User.deleteOne({ _id: id });
+    return res.status(200).json({ message: "User Deleted Successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = {getAllUsers,getAllContacts,deleteUserById};
