@@ -24,7 +24,15 @@ router
   // *-------------------------------
 //* Get single user data Route 📝
 // *-------------------------------
+
 router
   .route("/users/:id")
   .get(authMiddleware, adminMiddleware, adminController.getUserById);
+
+    // *-------------------------------
+//* Update Route 📝
+// *-------------------------------
+router
+  .route("/users/update/:id")
+  .patch(authMiddleware, adminMiddleware, adminController.updateUserById);
 module.exports = router;
