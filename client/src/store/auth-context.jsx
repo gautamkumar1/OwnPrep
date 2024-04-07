@@ -11,6 +11,7 @@ export const authContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
+  const [isLoading,setisLoading] = useState(true)
   const [service, setService] = useState("");
   const authorizationToken = `Bearer ${token}`;
   
@@ -23,6 +24,7 @@ export const AuthProvider = ({ children }) => {
 // JWT AUTHENTICATION - to get the currentlt loggedIn user data
 const userAuthentication = async () => {
   try {
+    setisLoading(true);
     const response = await fetch("http://localhost:5000/api/auth/user", {
       method: "GET",
       headers: {
@@ -32,9 +34,11 @@ const userAuthentication = async () => {
     if (response.ok) {
       const responseData = await response.json();
       setUser(responseData.userData);
+      setisLoading(false);
     } else {
       setUser("");
       console.error("Error fetching user data");
+      setisLoading(false);
     }
   } catch (error) {
     console.log(error);
@@ -67,7 +71,7 @@ useEffect (() => {
   };
   return (
     <authContext.Provider
-      value={{ storeTokenInLocalStorage, logoutUser, isLoggedIn,user,service,authorizationToken}}
+      value={{ storeTokenInLocalStorage, logoutUser, isLoggedIn,user,service,authorizationToken,isLoading}}
     >
       {children}
     </authContext.Provider>

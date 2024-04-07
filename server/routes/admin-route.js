@@ -35,4 +35,7 @@ router
 router
   .route("/users/update/:id")
   .patch(authMiddleware, adminMiddleware, adminController.updateUserById);
+router
+  .route("/contacts/delete/:id")
+  .delete(authMiddleware, adminMiddleware, adminController.deleteContactById);
 module.exports = router;

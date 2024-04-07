@@ -1,12 +1,15 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useAuth } from "../store/auth-context";
 import { Link } from "react-router-dom";
 
+
 function AdminUsers(){
   const [users, setUsers] = useState([]);
 
   const { authorizationToken} = useAuth();
+  
 
   const getAllUsersData = async () => {
     try {
@@ -17,7 +20,7 @@ function AdminUsers(){
         },
       });
       const data = await response.json();
-      console.log(`users ${data}`);
+      // console.log(`users ${data}`);
       setUsers(data);
     } catch (error) {
       console.log(error);
@@ -75,7 +78,9 @@ function AdminUsers(){
                     <td>{curUser.email}</td>
                     <td>{curUser.phone}</td>
                     <td>
-                      <Link to={`/admin/users/${curUser._id}/edit`}>Edit</Link>
+                      <Link to={`/admin/users/${curUser._id}/edit`}>
+                        Edit
+                      </Link>
                     </td>
                     <td>
                       <button
