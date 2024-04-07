@@ -44,4 +44,17 @@ const deleteUserById = async (req, res,next) => {
     next(error);
   }
 };
-module.exports = {getAllUsers,getAllContacts,deleteUserById};
+  // *-------------------------------
+//* Get single user data Route 📝
+// *-------------------------------
+const getUserById = async (req, res,next) => {
+  try {
+    const id = req.params.id;
+    const data = await User.findOne({ _id: id }, { password: 0 });
+    return res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getAllUsers, getAllContacts, deleteUserById, getUserById };

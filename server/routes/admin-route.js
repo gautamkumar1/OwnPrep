@@ -21,4 +21,10 @@ router
 router
   .route("/users/delete/:id")
   .delete(authMiddleware, adminMiddleware, adminController.deleteUserById);
+  // *-------------------------------
+//* Get single user data Route 📝
+// *-------------------------------
+router
+  .route("/users/:id")
+  .get(authMiddleware, adminMiddleware, adminController.getUserById);
 module.exports = router;
