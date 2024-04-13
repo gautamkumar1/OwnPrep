@@ -16,9 +16,10 @@ const app = express();
 // Lets takle cors policy settings
 const corsOptions = {
   origin: "https://ownprep.onrender.com",
-  method: "GET,POST,PUT, DELETE, PATCH,HEAD",
-  Credential: true,
+  methods: "GET,POST,PUT,DELETE,PATCH,HEAD",
+  credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 // Mount the Router: To use the router in your main Express app, you can "mount" it at a specific URL prefix
