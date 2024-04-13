@@ -30,7 +30,7 @@ app.use("/api/admin",adminRoute);
 
 app.use(errorMiddleware)
 
-const PORT = 5000;
+const PORT = process.env.PORT || 500;
 // it return promise 
 connectDb().then(() => {
   app.listen(PORT, () => {
