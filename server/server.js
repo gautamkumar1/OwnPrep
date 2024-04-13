@@ -15,7 +15,7 @@ const app = express();
 */
 // Lets takle cors policy settings
 const corsOptions = {
-  origin: "https://own-prep.vercel.app/",
+  origin: "http://localhost:5173",
   method: "GET,POST,PUT, DELETE, PATCH,HEAD",
   Credential: true,
 };
@@ -30,7 +30,7 @@ app.use("/api/admin",adminRoute);
 
 app.use(errorMiddleware)
 
-const PORT = process.env.PORT || 500;
+const PORT = process.env.PORT || 5000;
 // it return promise 
 connectDb().then(() => {
   app.listen(PORT, () => {
