@@ -35,7 +35,7 @@ function Contact(){
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/from/contact", {
+      const response = await fetch("https://ownprep.onrender.com/api/from/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

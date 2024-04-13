@@ -15,7 +15,7 @@ const app = express();
 */
 // Lets takle cors policy settings
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://ownprep.onrender.com",
   method: "GET,POST,PUT, DELETE, PATCH,HEAD",
   Credential: true,
 };
