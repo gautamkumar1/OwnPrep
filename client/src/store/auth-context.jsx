@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
 const userAuthentication = async () => {
   try {
     setisLoading(true);
-    const response = await fetch("http://localhost:5000/api/auth/user", {
+    const response = await fetch("https://ownprep.onrender.com/api/auth/user", {
       method: "GET",
       headers: {
         Authorization: authorizationToken,
@@ -47,9 +47,12 @@ const userAuthentication = async () => {
 
 const getServiceData = async () =>{
   try {
-    const response = await fetch("http://localhost:5000/api/data/service",{
-      method: "GET",
-    });
+    const response = await fetch(
+      "https://ownprep.onrender.com/api/data/service",
+      {
+        method: "GET",
+      }
+    );
     if(response.ok){
       const services = await response.json();
      setService(services.data);
