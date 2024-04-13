@@ -13,12 +13,16 @@ function AdminUsers(){
 
   const getAllUsersData = async () => {
     try {
-      const response = await fetch("https://ownprep.onrender.com/api/admin/users", {
-        method: "GET",
-        headers: {
-          Authorization: authorizationToken,
-        },
-      });
+      const response = await fetch(
+        "https://ownprep.onrender.com/api/admin/users",
+        {
+          method: "GET",
+          headers: {
+            Authorization: authorizationToken,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
       const data = await response.json();
       // console.log(`users ${data}`);
       setUsers(data);
@@ -36,6 +40,7 @@ function AdminUsers(){
           method: "DELETE",
           headers: {
             Authorization: authorizationToken,
+            "Access-Control-Allow-Origin": "*",
           },
         }
       );

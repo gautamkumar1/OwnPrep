@@ -25,6 +25,7 @@ function AdminUpdate(){
           method: "GET",
           headers: {
             Authorization: authorizationToken,
+            "Access-Control-Allow-Origin": "*",
           },
         }
       );
@@ -66,6 +67,7 @@ function AdminUpdate(){
           headers: {
             "Content-Type": "application/json",
             Authorization: authorizationToken,
+            "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify(data),
         }

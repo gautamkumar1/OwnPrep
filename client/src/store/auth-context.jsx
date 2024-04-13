@@ -29,6 +29,7 @@ const userAuthentication = async () => {
       method: "GET",
       headers: {
         Authorization: authorizationToken,
+        "Access-Control-Allow-Origin": "*",
       },
     });
     if (response.ok) {
@@ -51,6 +52,7 @@ const getServiceData = async () =>{
       "https://ownprep.onrender.com/api/data/service",
       {
         method: "GET",
+        "Access-Control-Allow-Origin": "*",
       }
     );
     if(response.ok){

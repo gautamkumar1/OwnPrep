@@ -35,13 +35,17 @@ function Contact(){
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://ownprep.onrender.com/api/from/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(contact),
-      });
+      const response = await fetch(
+        "https://ownprep.onrender.com/api/from/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify(contact),
+        }
+      );
       if(response.ok){
         const responseData = await response.json();
         alert("Message Sent Successfully")

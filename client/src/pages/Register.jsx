@@ -24,13 +24,17 @@ function Register() {
     e.preventDefault();
     // console.log(user)
     try {
-      const response = await fetch("https://ownprep.onrender.com/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+      const response = await fetch(
+        "https://ownprep.onrender.com/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify(user),
+        }
+      );
       const responseData = await response.json();
       // console.log("responseData", responseData);
       if(response.ok){
